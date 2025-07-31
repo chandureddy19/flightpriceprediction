@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Price Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+        }
+        .result-container {
+            background: white;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        .price {
+            font-size: 32px;
+            color: #1a73e8;
+            margin-top: 20px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background-color: #0c5dc0;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h2>Predicted Flight Price</h2>
+        <div class="price">₹ {{ prediction | round(2) }}</div>
+        <a href="/" class="back-btn">Predict Again</a>
+    </div>
+</body>
+</html>

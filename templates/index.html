@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Price Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 6px;
+        }
+
+        input[type="number"],
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .form-row input[type="checkbox"] + label {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        .form-row label[for="Route1"] {
+            margin-top: 10px;
+        }
+
+        .form-row.route-group input {
+            margin-right: 10px;
+            width: 100px;
+        }
+
+        button {
+            padding: 14px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0f5ec7;
+        }
+
+        @media (max-width: 600px) {
+            .form-row.route-group input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Flight Price Prediction</h2>
+        <form method="POST" action="/predict">
+            <div class="form-row">
+                <label for="Total_Stops">Total Stops:</label>
+                <input type="number" id="Total_Stops" name="Total_Stops" required>
+            </div>
+
+            <div class="form-row route-group">
+                <label>Route (1-5):</label>
+                <input type="number" name="Route1" required>
+                <input type="number" name="Route2" required>
+                <input type="number" name="Route3" required>
+                <input type="number" name="Route4" required>
+                <input type="number" name="Route5" required>
+            </div>
+
+            <div class="form-row">
+                <label>Airline:</label>
+                <select name="Airline" required>
+                    <option disabled selected>Select Airline</option>
+                    <option value="Air India">Air India</option>
+                    <option value="GoAir">GoAir</option>
+                    <option value="IndiGo">IndiGo</option>
+                    <option value="Jet Airways">Jet Airways</option>
+                    <option value="Jet Airways Business">Jet Airways Business</option>
+                    <option value="Multiple carriers">Multiple carriers</option>
+                    <option value="Multiple carriers Premium economy">Multiple carriers Premium economy</option>
+                    <option value="SpiceJet">SpiceJet</option>
+                    <option value="Trujet">Trujet</option>
+                    <option value="Vistara">Vistara</option>
+                    <option value="Vistara Premium economy">Vistara Premium economy</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Source City:</label>
+                <select name="Source" required>
+                    <option disabled selected>Select Source</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Mumbai">Mumbai</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Destination City:</label>
+                <select name="Destination" required>
+                    <option disabled selected>Select Destination</option>
+                    <option value="Cochin">Cochin</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="New Delhi">New Delhi</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="journey_day">Journey Day:</label>
+                <input type="number" id="journey_day" name="journey_day" required>
+            </div>
+
+            <div class="form-row">
+                <label for="journey_month">Journey Month:</label>
+                <input type="number" id="journey_month" name="journey_month" required>
+            </div>
+
+            <div class="form-row">
+                <label for="Dep_Time_hour">Departure Hour:</label>
+                <input type="number" id="Dep_Time_hour" name="Dep_Time_hour" required>
+            </div>
+
+            <div class="form-row">
+                <label for="Dep_Time_min">Departure Minute:</label>
+                <input type="number" id="Dep_Time_min" name="Dep_Time_min" required>
+            </div>
+
+            <div class="form-row">
+                <label for="Arrival_Time_hour">Arrival Hour:</label>
+                <input type="number" id="Arrival_Time_hour" name="Arrival_Time_hour" required>
+            </div>
+
+            <div class="form-row">
+                <label for="Arrival_Time_min">Arrival Minute:</label>
+                <input type="number" id="Arrival_Time_min" name="Arrival_Time_min" required>
+            </div>
+
+            <div class="form-row">
+                <label for="journey_day_of_week">Journey Day of Week:</label>
+                <select name="journey_day_of_week" required>
+                    <option value="0">Sunday</option>
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                    <option value="6">Saturday</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Other Factors:</label>
+                <label><input type="checkbox" name="is_weekend" value="1"> Weekend</label>
+                <label><input type="checkbox" name="is_holiday_season" value="1"> Holiday Season</label>
+                <label><input type="checkbox" name="is_peak_hour_departure" value="1"> Peak Hour Departure</label>
+                <label><input type="checkbox" name="is_peak_hour_arrival" value="1"> Peak Hour Arrival</label>
+            </div>
+
+            <div class="form-row">
+                <label for="dur_hour">Duration Hour:</label>
+                <input type="number" id="dur_hour" name="dur_hour" required>
+            </div>
+
+            <div class="form-row">
+                <label for="dur_min">Duration Minute:</label>
+                <input type="number" id="dur_min" name="dur_min" required>
+            </div>
+
+            <div class="form-row">
+                <label for="flight_duration_category_Medium">Duration Category: Medium</label>
+                <input type="number" id="flight_duration_category_Medium" name="flight_duration_category_Medium" required>
+            </div>
+
+            <div class="form-row">
+                <label for="flight_duration_category_Short">Duration Category: Short</label>
+                <input type="number" id="flight_duration_category_Short" name="flight_duration_category_Short" required>
+            </div>
+
+            <button type="submit">Predict Price</button>
+        </form>
+    </div>
+</body>
+</html>
